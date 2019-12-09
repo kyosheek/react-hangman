@@ -9,12 +9,43 @@ var letters = {
   21: 'V', 22: 'W', 23: 'X', 24: 'Y', 25: 'Z',
 };
 
+var word = getWord();
+
 class Hangman extends Component {
-  render() {return null;}
+  render() {
+    return (
+      <h1></h1>
+    );
+  }
+}
+
+function Letter(props) {
+  return (
+    <h2>{props.value}</h2>
+  );
 }
 
 class Word extends Component {
-  render() {return null;}
+  renderLetter(i) {
+    return (
+      <Letter
+        key={i}
+        value={this.props.wordLetters[i]}
+      />
+    );
+  }
+
+  render() {
+    var letters = Array(word.length).fill(null);
+    for (let i = 0; i < word.length; i++) {
+      letters[i] = this.renderLetter(i);
+    }
+    return (
+      <div className="word-row">
+        {letters}
+      </div>
+    );
+  }
 }
 
 function Button(props) {
@@ -31,43 +62,16 @@ function Button(props) {
 
   return (
     <button className={btnClass} onClick={props.onClick}>
-      {props.value}
+      {props.value[0]}
     </button>
   );
 }
 
-// class Button extends Component {
-//   constructor(props) {
-//     super(props);
-//
-//     this.state = {
-//       onClick: props.onClick,
-//       value: props.value,
-//       isPressed: false,
-//       isTrue: false,
-//     };
-//   }
-//
-//   render() {
-//     var btnClass = this.state.isPressed ? (this.state.isTrue ? "trueButton" : "falseButton") : "button";
-//
-//     return (
-//       <button className={btnClass} onClick={this.state.onClick}>
-//         {this.state.value}
-//       </button>
-//     );
-//   }
-// }
-
 class Board extends Component {
   renderButton(i) {
-  //  var value = [this.props.buttons[i], this.props.isClicked[i], this.props.isTrue[i]];
     return (
       <Button
         value={[this.props.buttons[i], this.props.isClicked[i], this.props.isTrue[i]]}
-        // value1={this.props.buttons[i]}
-        // value2={this.props.isClicked[i]}
-        // value3={this.props.isTrue[i]}
         onClick={() => this.props.onClick(i)}
       />
     );
@@ -125,19 +129,32 @@ class Game extends Component {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i] = letters[i];
     }
+    const wordLetters = Array(word.length).fill(null);
+    for (let i = 0; i < word.length; i++) {
+      wordLetters[i] = word.charAt(i);
+    }
 
     this.state = {
       buttons: buttons,
       isClicked: isClicked,
       isTrue: isTrue,
+      wordLetters: wordLetters,
       stepNumber: 0,
     };
   }
 
   handleClick(i) {
+    const buttons = this.state.buttons.slice();
     const isClicked = this.state.isClicked.slice();
     isClicked[i] = true;
     let step = this.state.stepNumber + 1;
+
+    const wordLetters = this.state.wordLetters.slice();
+    let isIn = false;
+    for (let lett of wordLetters) {
+      if
+    }
+
     this.setState({
       isClicked: isClicked,
       stepNumber: step,
@@ -148,6 +165,7 @@ class Game extends Component {
     const buttons = this.state.buttons.slice();
     const isClicked = this.state.isClicked.slice();
     const isTrue = this.state.isTrue.slice();
+    const wordLetters = this.state.wordLetters.slice();
 
     return (
       <div className="game">
@@ -155,7 +173,9 @@ class Game extends Component {
           <Hangman />
         </div>
         <div className="word">
-          <Word />
+          <Word
+            wordLetters={wordLetters}
+          />
         </div>
         <div className="game-board">
           <Board
@@ -179,3 +199,26 @@ class App extends Component {
 }
 
 export default App;
+
+// ========================================================================
+// Additional stuff
+// ========================================================================
+
+function getWord() {
+  var words;
+
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", "dict.txt", false);
+  rawFile.onreadystatechange = function() {
+    if (rawFile.readyState === 4) {
+      if (rawFile.status === 200 || rawFile.status === 0) {
+        var allText = rawFile.responseText;
+        words = allText.split('\n');
+      }
+    }
+  }
+  rawFile.send(null);
+
+  var rand = 0 + Math.random() * (words.length + 1 - 0);
+  return words[Math.floor(rand)];
+}
