@@ -146,17 +146,27 @@ class Game extends Component {
   handleClick(i) {
     const buttons = this.state.buttons.slice();
     const isClicked = this.state.isClicked.slice();
-    isClicked[i] = true;
+    const isTrue = this.state.isTrue.slice();
+    const wordLetters = this.state.wordLetters.slice();
     let step = this.state.stepNumber + 1;
 
-    const wordLetters = this.state.wordLetters.slice();
-    let isIn = false;
-    for (let lett of wordLetters) {
-      if
+    isClicked[i] = true;
+
+    if (wordLetters.indexOf(buttons[i].toLowerCase()) >= 0) {
+      isTrue[i] = true;
+      for (let j = 0; j < wordLetters.length(); j++) {
+        if (wordLetters[j] == buttons[i].toLowerCase()) {
+          /*
+            // TODO:
+            ADD ARRAY TO MARK GUESSED LETTERS AND ADD LOGIC TO LETTER RENDERING 
+          */
+        }
+      }
     }
 
     this.setState({
       isClicked: isClicked,
+      isTrue: isTrue,
       stepNumber: step,
     });
   }
