@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 //import './App.css';
 
+/*
+  TODO:
+  add graphics for button
+  MAYBE add hangman graphics and logic
+*/
+
 var letters = {
   0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G',
   7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N',
@@ -14,7 +20,7 @@ var word = getWord();
 class Hangman extends Component {
   render() {
     return (
-      <h1></h1>
+      <div></div>
     );
   }
 }
@@ -146,7 +152,7 @@ class Game extends Component {
       isTrue: isTrue,
       wordLetters: wordLetters,
       isShown: isShown,
-      stepNumber: 0,
+      stepNumber: 6,
     };
   }
 
@@ -156,7 +162,11 @@ class Game extends Component {
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
-    let step = this.state.stepNumber + 1;
+    let stepNumber = this.state.stepNumber;
+
+    if (isShown.every(ifTrue) || stepNumber === 0) {
+      return;
+    }
 
     isClicked[i] = true;
 
@@ -167,13 +177,41 @@ class Game extends Component {
           isShown[j] = true;
         }
       }
+    } else {
+      if (stepNumber != 0) {
+        stepNumber = stepNumber - 1;
+      }
     }
 
     this.setState({
       isClicked: isClicked,
       isTrue: isTrue,
       isShown: isShown,
-      stepNumber: step,
+      stepNumber: stepNumber,
+    });
+  }
+
+  toStart() {
+    word = getWord();
+    const buttons = Array(26).fill(null);
+    const isClicked = Array(26).fill(false);
+    const isTrue = Array(26).fill(false);
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i] = letters[i];
+    }
+    const wordLetters = Array(word.length).fill(null);
+    for (let i = 0; i < word.length; i++) {
+      wordLetters[i] = word.charAt(i);
+    }
+    const isShown = Array(word.length).fill(false);
+
+    this.setState({
+      buttons: buttons,
+      isClicked: isClicked,
+      isTrue: isTrue,
+      wordLetters: wordLetters,
+      isShown: isShown,
+      stepNumber: 6,
     });
   }
 
@@ -183,12 +221,38 @@ class Game extends Component {
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
+    const stepNumber = this.state.stepNumber;
+
+    var status = null;
+
+    if (isShown.every(ifTrue)) {
+      status =
+      <div className="status">
+        <h2 className="guesses">YOU WON!</h2>
+        <button className="restartButton" onClick={() => this.toStart()}></button>
+      </div>
+    } else {
+      if (stepNumber != 0) {
+        status =
+        <div className="status">
+          <h2 className="guesses">GUESSES LEFT: {stepNumber}</h2>
+        </div>;
+      } else {
+        status =
+        <div className="status">
+          <h2 className="guesses">YOU LOST!</h2>
+          <button className="restartButton" onClick={() => this.toStart()}></button>
+        </div>
+        ;
+      }
+    }
 
     return (
       <div className="game">
         <div className="hangman">
           <Hangman />
         </div>
+        <div>{status}</div>
         <div className="word">
           <Word
             wordLetters={wordLetters}
@@ -239,4 +303,8 @@ function getWord() {
 
   var rand = 0 + Math.random() * (words.length + 1 - 0);
   return words[Math.floor(rand)];
+}
+
+function ifTrue(boo) {
+  return boo;
 }
