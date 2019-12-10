@@ -18,7 +18,15 @@ body {
   text-transform: uppercase;
 }
 
-h2 {
+.letterShown {
+  color: #0f0f0f;
+  font-family: monospace;
+  margin-right: 5px;
+  display: inline;
+  border-bottom: 2px solid black;
+}
+
+.letterHidden {
   color: transparent;
   font-family: monospace;
   margin-right: 5px;

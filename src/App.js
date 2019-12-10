@@ -21,16 +21,21 @@ class Hangman extends Component {
 
 function Letter(props) {
   return (
-    <h2>{props.value}</h2>
+    <h2 className={props.value[1]}>{props.value[0]}</h2>
   );
 }
 
 class Word extends Component {
   renderLetter(i) {
+    var letterClass = "letterHidden";
+    if (this.props.isShown[i]) {
+      letterClass = "letterShown";
+    }
+
     return (
       <Letter
         key={i}
-        value={this.props.wordLetters[i]}
+        value={[this.props.wordLetters[i], letterClass]}
       />
     );
   }
@@ -133,12 +138,14 @@ class Game extends Component {
     for (let i = 0; i < word.length; i++) {
       wordLetters[i] = word.charAt(i);
     }
+    const isShown = Array(word.length).fill(false);
 
     this.state = {
       buttons: buttons,
       isClicked: isClicked,
       isTrue: isTrue,
       wordLetters: wordLetters,
+      isShown: isShown,
       stepNumber: 0,
     };
   }
@@ -148,18 +155,16 @@ class Game extends Component {
     const isClicked = this.state.isClicked.slice();
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
+    const isShown = this.state.isShown.slice();
     let step = this.state.stepNumber + 1;
 
     isClicked[i] = true;
 
     if (wordLetters.indexOf(buttons[i].toLowerCase()) >= 0) {
       isTrue[i] = true;
-      for (let j = 0; j < wordLetters.length(); j++) {
+      for (let j = 0; j < wordLetters.length; j++) {
         if (wordLetters[j] == buttons[i].toLowerCase()) {
-          /*
-            // TODO:
-            ADD ARRAY TO MARK GUESSED LETTERS AND ADD LOGIC TO LETTER RENDERING 
-          */
+          isShown[j] = true;
         }
       }
     }
@@ -167,6 +172,7 @@ class Game extends Component {
     this.setState({
       isClicked: isClicked,
       isTrue: isTrue,
+      isShown: isShown,
       stepNumber: step,
     });
   }
@@ -176,6 +182,7 @@ class Game extends Component {
     const isClicked = this.state.isClicked.slice();
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
+    const isShown = this.state.isShown.slice();
 
     return (
       <div className="game">
@@ -185,6 +192,7 @@ class Game extends Component {
         <div className="word">
           <Word
             wordLetters={wordLetters}
+            isShown={isShown}
           />
         </div>
         <div className="game-board">
