@@ -173,13 +173,13 @@ class Game extends Component {
     if (wordLetters.indexOf(buttons[i].toLowerCase()) >= 0) {
       isTrue[i] = true;
       for (let j = 0; j < wordLetters.length; j++) {
-        if (wordLetters[j] == buttons[i].toLowerCase()) {
+        if (wordLetters[j] === buttons[i].toLowerCase()) {
           isShown[j] = true;
         }
       }
     } else {
-      if (stepNumber != 0) {
-        stepNumber = stepNumber - 1;
+      if (stepNumber !== 0) {
+        stepNumber -= 1;
       }
     }
 
@@ -232,7 +232,7 @@ class Game extends Component {
         <button className="restartButton" onClick={() => this.toStart()}></button>
       </div>
     } else {
-      if (stepNumber != 0) {
+      if (stepNumber !== 0) {
         status =
         <div className="status">
           <h2 className="guesses">GUESSES LEFT: {stepNumber}</h2>
