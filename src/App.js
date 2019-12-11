@@ -238,6 +238,9 @@ class Game extends Component {
           <h2 className="guesses">GUESSES LEFT: {stepNumber}</h2>
         </div>;
       } else {
+        for (let j = 0; j < isShown.length; j++) {
+          isShown[j] = true;
+        }
         status =
         <div className="status">
           <h2 className="guesses">YOU LOST!</h2>
