@@ -30,9 +30,7 @@ function Letter(props) {
 class Word extends Component {
   renderLetter(i) {
     var letterClass = "letterHidden";
-    if (this.props.isShown[i]) {
-      letterClass = "letterShown";
-    }
+    this.props.isShown[i] ? letterClass = "letterShown" : {};
 
     return (
       <Letter
@@ -59,11 +57,7 @@ function Button(props) {
   var btnClass = "button";
 
   if (props.value[1] != null) {
-    if (props.value[1]) {
-      btnClass = "buttonTrue";
-    } else {
-      btnClass = "buttonFalse";
-    }
+    props.value[1] ? btnClass = "buttonTrue" : btnClass = "buttonFalse";
   }
 
   return (
@@ -163,15 +157,11 @@ class Game extends Component {
     if (wordLetters.indexOf(buttons[i].toLowerCase()) >= 0) {
       isTrue[i] = true;
       for (let j = 0; j < wordLetters.length; j++) {
-        if (wordLetters[j] === buttons[i].toLowerCase()) {
-          isShown[j] = true;
-        }
+        wordLetters[j] === buttons[i].toLowerCase() ? isShown[j] = true : {};
       }
     } else {
       isTrue[i] = false;
-      if (stepNumber !== 0) {
-        stepNumber -= 1;
-      }
+      stepNumber !== 0 ? stepNumber -= 1 : {};
     }
 
     this.setState({
