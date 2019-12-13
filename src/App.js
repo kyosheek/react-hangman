@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 /*
   TODO:
-  add graphics for button
+    decide where to put restart button
+    make it always active
+    give a reason for player to press it constantly
 */
 
 var letters = {
