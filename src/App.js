@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-//import './App.css';
 
 /*
   TODO:
   add graphics for button
-  MAYBE add hangman graphics and logic
 */
 
 var letters = {
@@ -23,14 +20,6 @@ function Hangman(props) {
     <img src={filepath} alt=""></img>
   );
 }
-
-// class Hangman extends Component {
-//   render() {
-//     return (
-//       <div></div>
-//     );
-//   }
-// }
 
 function Letter(props) {
   return (
@@ -67,15 +56,14 @@ class Word extends Component {
 }
 
 function Button(props) {
-  var btnClass = null;
-  if (props.value[1]) {
-    if (props.value[2]) {
+  var btnClass = "button";
+
+  if (props.value[1] != null) {
+    if (props.value[1]) {
       btnClass = "buttonTrue";
     } else {
       btnClass = "buttonFalse";
     }
-  } else {
-    btnClass = "button";
   }
 
   return (
@@ -89,7 +77,7 @@ class Board extends Component {
   renderButton(i) {
     return (
       <Button
-        value={[this.props.buttons[i], this.props.isClicked[i], this.props.isTrue[i]]}
+        value={[this.props.buttons[i], this.props.isTrue[i]]}
         onClick={() => this.props.onClick(i)}
       />
     );
@@ -142,8 +130,7 @@ class Game extends Component {
     super(props);
 
     const buttons = Array(26).fill(null);
-    const isClicked = Array(26).fill(false);
-    const isTrue = Array(26).fill(false);
+    const isTrue = Array(26).fill(null);
     for (let i = 0; i < buttons.length; i++) {
       buttons[i] = letters[i];
     }
@@ -155,7 +142,6 @@ class Game extends Component {
 
     this.state = {
       buttons: buttons,
-      isClicked: isClicked,
       isTrue: isTrue,
       wordLetters: wordLetters,
       isShown: isShown,
@@ -165,7 +151,6 @@ class Game extends Component {
 
   handleClick(i) {
     const buttons = this.state.buttons.slice();
-    const isClicked = this.state.isClicked.slice();
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
@@ -175,8 +160,6 @@ class Game extends Component {
       return;
     }
 
-    isClicked[i] = true;
-
     if (wordLetters.indexOf(buttons[i].toLowerCase()) >= 0) {
       isTrue[i] = true;
       for (let j = 0; j < wordLetters.length; j++) {
@@ -185,13 +168,13 @@ class Game extends Component {
         }
       }
     } else {
+      isTrue[i] = false;
       if (stepNumber !== 0) {
         stepNumber -= 1;
       }
     }
 
     this.setState({
-      isClicked: isClicked,
       isTrue: isTrue,
       isShown: isShown,
       stepNumber: stepNumber,
@@ -201,8 +184,7 @@ class Game extends Component {
   toStart() {
     word = getWord();
     const buttons = Array(26).fill(null);
-    const isClicked = Array(26).fill(false);
-    const isTrue = Array(26).fill(false);
+    const isTrue = Array(26).fill(null);
     for (let i = 0; i < buttons.length; i++) {
       buttons[i] = letters[i];
     }
@@ -214,7 +196,6 @@ class Game extends Component {
 
     this.setState({
       buttons: buttons,
-      isClicked: isClicked,
       isTrue: isTrue,
       wordLetters: wordLetters,
       isShown: isShown,
@@ -224,7 +205,6 @@ class Game extends Component {
 
   render() {
     const buttons = this.state.buttons.slice();
-    const isClicked = this.state.isClicked.slice();
     const isTrue = this.state.isTrue.slice();
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
@@ -271,7 +251,6 @@ class Game extends Component {
         />
         <Board
           buttons={buttons}
-          isClicked={isClicked}
           isTrue={isTrue}
           onClick={i => this.handleClick(i)}
         />
