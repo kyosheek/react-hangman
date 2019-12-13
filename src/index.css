@@ -4,18 +4,22 @@ body {
   font-family: helvetica;
 }
 
-.board-row {
+.game {
   text-align: center;
 }
 
-.word-row {
+img {
+  max-width: 200px;
+}
+
+.board-row {
   text-align: center;
-  margin-bottom: 10px;
 }
 
 .word {
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .status {

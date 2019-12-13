@@ -17,13 +17,20 @@ var letters = {
 
 var word = getWord();
 
-class Hangman extends Component {
-  render() {
-    return (
-      <div></div>
-    );
-  }
+function Hangman(props) {
+  const filepath = "./hangman/" + props.value + ".png";
+  return (
+    <img src={filepath} alt=""></img>
+  );
 }
+
+// class Hangman extends Component {
+//   render() {
+//     return (
+//       <div></div>
+//     );
+//   }
+// }
 
 function Letter(props) {
   return (
@@ -52,7 +59,7 @@ class Word extends Component {
       letters[i] = this.renderLetter(i);
     }
     return (
-      <div className="word-row">
+      <div className="word">
         {letters}
       </div>
     );
@@ -90,7 +97,7 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
+      <div className="game-board">
         <div className="board-row">
           {this.renderButton(0)}
           {this.renderButton(1)}
@@ -253,23 +260,21 @@ class Game extends Component {
     return (
       <div className="game">
         <div className="hangman">
-          <Hangman />
-        </div>
-        <div>{status}</div>
-        <div className="word">
-          <Word
-            wordLetters={wordLetters}
-            isShown={isShown}
+          <Hangman
+            value={stepNumber}
           />
         </div>
-        <div className="game-board">
-          <Board
-            buttons={buttons}
-            isClicked={isClicked}
-            isTrue={isTrue}
-            onClick={i => this.handleClick(i)}
-          />
-        </div>
+        {status}
+        <Word
+          wordLetters={wordLetters}
+          isShown={isShown}
+        />
+        <Board
+          buttons={buttons}
+          isClicked={isClicked}
+          isTrue={isTrue}
+          onClick={i => this.handleClick(i)}
+        />
       </div>
     );
   }
