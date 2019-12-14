@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
 
-/*
-  TODO:
-    decide where to put restart button
-    make it always active
-    give a reason for player to press it constantly
-*/
-
 var letters = {
   0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G',
   7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N',
@@ -17,7 +10,7 @@ var letters = {
 var word = getWord();
 
 function Hangman(props) {
-  const filepath = "./hangman/" + props.value + ".png";
+  const filepath = "/hangman/" + props.value + ".png";
   return (
     <img src={filepath} alt=""></img>
   );
@@ -53,6 +46,14 @@ class Word extends Component {
       </div>
     );
   }
+}
+
+function RestartButton(props) {
+  return (
+    <button className="restartButton" onClick={props.onClick}>
+      RESTART
+    </button>
+  );
 }
 
 function Button(props) {
@@ -208,7 +209,6 @@ class Game extends Component {
       status =
       <div className="status">
         <h2 className="guesses">YOU WON!</h2>
-        <button className="restartButton" onClick={() => this.toStart()}></button>
       </div>
     } else {
       if (stepNumber !== 0) {
@@ -223,7 +223,6 @@ class Game extends Component {
         status =
         <div className="status">
           <h2 className="guesses">YOU LOST!</h2>
-          <button className="restartButton" onClick={() => this.toStart()}></button>
         </div>
         ;
       }
@@ -245,6 +244,9 @@ class Game extends Component {
           buttons={buttons}
           isTrue={isTrue}
           onClick={i => this.handleClick(i)}
+        />
+        <RestartButton
+          onClick={() => this.toStart()}
         />
       </div>
     );
