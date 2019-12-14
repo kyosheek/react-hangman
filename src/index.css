@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: helvetica;
+}
+
+.game {
+  text-align: center;
+}
+
+img {
+  max-width: 200px;
+}
+
+.board-row {
+  text-align: center;
+}
+
+.board-row > * {
+  margin: 1px;
+}
+
+.word {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.status {
+  text-align: center;
+}
+
+.guesses {
+  white-space: nowrap;
+  display: inline;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+}
+
+.restartButton {
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 2vh;
+  white-space: nowrap;
+  display: inline;
+  background: #e7e7e7;
+  color: #333;
+}
+
+.letterShown {
+  color: #0f0f0f;
+  font-family: monospace;
+  margin-right: 5px;
+  display: inline;
+  border-bottom: 2px solid black;
+}
+
+.letterHidden {
+  color: transparent;
+  font-family: monospace;
+  margin-right: 5px;
+  display: inline;
+  border-bottom: 2px solid black;
+}
+
+.button {
+  background-color: #f9f9f9;
+  color: black;
+
+  border-radius: 3px;
+  border-width: 1.5px;
+
+  width: 30px;
+  height: 30px;
+}
+
+.buttonFalse {
+  background-color: #ff4135;
+  color: black;
+
+  border-radius: 3px;
+  border-width: 1.5px;
+
+  width: 30px;
+  height: 30px;
+}
+
+.buttonTrue {
+  background-color: #4caf50;
+  color: black;
+
+  border-radius: 3px;
+  border-width: 1.5px;
+
+  width: 30px;
+  height: 30px;
+}
+
+.button:focus, .buttonFalse:focus, .buttonTrue:focus {
+  outline: none;
+}
