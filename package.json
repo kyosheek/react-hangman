@@ -1,33 +1,24 @@
 {
   "name": "react-hangman",
   "version": "0.1.0",
-<<<<<<< HEAD
   "homepage": "https://kyosheek.github.io",
   "private": true,
   "dependencies": {
     "gh-pages": "^2.1.1",
-=======
   "private": true,
   "dependencies": {
->>>>>>> parent of 260228f... Updates
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "0.9.x"
   },
   "devDependencies": {},
   "scripts": {
-<<<<<<< HEAD
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
-=======
->>>>>>> parent of 260228f... Updates
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
-<<<<<<< HEAD
 }
-=======
 }
->>>>>>> parent of 260228f... Updates
