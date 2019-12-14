@@ -6,6 +6,7 @@
  
 # how to run
 you can download release under [*release*](https://github.com/kyosheek/react-hangman/releases/tag/v1.0.0) tab or clone this repo to your computer
+
 you also need npm package
 
 ```
