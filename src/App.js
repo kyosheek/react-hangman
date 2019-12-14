@@ -9,13 +9,6 @@ var letters = {
 
 var word = getWord();
 
-function Hangman(props) {
-  const filepath = "./hangman/" + props.value + ".png";
-  return (
-    <img src={filepath} alt=""></img>
-  );
-}
-
 function Letter(props) {
   return (
     <h2 className={props.value[1]}>{props.value[0]}</h2>
@@ -137,10 +130,17 @@ class Game extends Component {
     }
     const isShown = Array(word.length).fill(false);
 
+    const images = [];
+    for (let i = 0; i <= 6; i++) {
+      const filepath = "./hangman/" + (6-i) + ".png";
+      images.push(<img src={filepath} alt=""></img>);
+    }
+
     this.state = {
       buttons: buttons,
       isTrue: isTrue,
       wordLetters: wordLetters,
+      images: images,
       isShown: isShown,
       stepNumber: 6,
     };
@@ -202,6 +202,7 @@ class Game extends Component {
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
     const stepNumber = this.state.stepNumber;
+    const image = this.state.images[6-stepNumber];
 
     var status = null;
 
@@ -231,9 +232,7 @@ class Game extends Component {
     return (
       <div className="game">
         <div className="hangman">
-          <Hangman
-            value={stepNumber}
-          />
+          {image}
         </div>
         {status}
         <Word
