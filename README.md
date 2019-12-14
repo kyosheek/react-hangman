@@ -13,7 +13,8 @@ you also need **npm** package
 # locate to directory
 cd react-hangman
 
-# run
+# install and run
+npm install
 npm run start
 
 # enjoy
