@@ -10,7 +10,7 @@ var letters = {
 var word = getWord();
 
 function Hangman(props) {
-  const filepath = "/hangman/" + props.value + ".png";
+  const filepath = "./hangman/" + props.value + ".png";
   return (
     <img src={filepath} alt=""></img>
   );
@@ -271,7 +271,7 @@ function getWord() {
   var words;
 
   var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", "dict.txt", false);
+  rawFile.open("GET", "./dict.txt", false);
   rawFile.onreadystatechange = function() {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status === 0) {

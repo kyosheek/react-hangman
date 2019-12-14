@@ -1,7 +1,7 @@
 {
   "name": "react-hangman",
   "version": "0.1.0",
-  "homepage": "https://kyosheek.github.io",
+  "homepage": "https://kyosheek.github.io/react-hangman",
   "private": true,
   "dependencies": {
     "gh-pages": "^2.1.1",
