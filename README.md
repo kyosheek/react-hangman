@@ -4,8 +4,11 @@
 # suggestions
  i am open to suggestions on how to improve my code, please open new *issues* or send them directly to my telegram **@kyoshee**
 
-# how to run
-you can download release under [*release*](https://github.com/kyosheek/react-hangman/releases/tag/v1.0.0) tab or clone this repo to your computer
+# how to play
+ visit a github pages game [page](https://kyosheek.github.io/react-hangman/)!
+
+# source cod
+you can download *build* under [*release*](https://github.com/kyosheek/react-hangman/releases/tag/v1.0.0) tab or clone this repo to your computer
 
 you also need **npm** package
 
