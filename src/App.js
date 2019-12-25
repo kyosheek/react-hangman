@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+/*
+  TODO:
+    change image loadind logic so on web they are loaded INSTANTLY DFQ
+*/
+
 var letters = {
   0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G',
   7: 'H', 8: 'I', 9: 'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N',
@@ -8,6 +13,42 @@ var letters = {
 };
 
 var word = getWord();
+
+function Hangman(props) {
+  var imgPath = "./hangman/" + props.value + ".png";
+
+  return (
+    <img src={imgPath} className="img-shown" alt=""/>
+  )
+}
+
+// class Hangman extends Component {
+//   renderImage(i) {
+//     var className="img-hidden";
+//     this.props.stepNumber == 6 - i ? className = "img-shown" : {};
+//
+//     var path = "./hangman/" + (this.props.stepNumber - i) + ".png";
+//     return (
+//       <Image
+//         key={i}
+//         value={[path, className, this.props.stepNumber - i]}
+//       />
+//     );
+//   }
+//
+//   render() {
+//     var images = Array(7).fill(null);
+//     for (let i = 0; i < 7; i++) {
+//       images[i] = this.renderImage(i);
+//     }
+//
+//     return (
+//       <div className="hangman">
+//         {images}
+//       </div>
+//     );
+//   }
+// }
 
 function Letter(props) {
   return (
@@ -119,6 +160,8 @@ class Game extends Component {
   constructor(props) {
     super(props);
 
+    preloadImages();
+
     const buttons = Array(26).fill(null);
     const isTrue = Array(26).fill(null);
     for (let i = 0; i < buttons.length; i++) {
@@ -130,17 +173,11 @@ class Game extends Component {
     }
     const isShown = Array(word.length).fill(false);
 
-    const images = [];
-    for (let i = 0; i <= 6; i++) {
-      const filepath = "./hangman/" + (6-i) + ".png";
-      images.push(<img src={filepath} alt=""></img>);
-    }
-
     this.state = {
       buttons: buttons,
       isTrue: isTrue,
       wordLetters: wordLetters,
-      images: images,
+      // images: images,
       isShown: isShown,
       stepNumber: 6,
     };
@@ -202,7 +239,7 @@ class Game extends Component {
     const wordLetters = this.state.wordLetters.slice();
     const isShown = this.state.isShown.slice();
     const stepNumber = this.state.stepNumber;
-    const image = this.state.images[6-stepNumber];
+    // const image = this.state.images[6-stepNumber];
 
     var status = null;
 
@@ -231,9 +268,9 @@ class Game extends Component {
 
     return (
       <div className="game">
-        <div className="hangman">
-          {image}
-        </div>
+        <Hangman
+          value={stepNumber}
+        />
         {status}
         <Word
           wordLetters={wordLetters}
@@ -287,4 +324,11 @@ function getWord() {
 
 function ifTrue(boo) {
   return boo;
+}
+
+function preloadImages() {
+  for (let i = 0; i <= 6; i++) {
+    var img = new Image();
+    img.src = ("./hangman/" + i + ".png");
+  }
 }

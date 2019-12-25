@@ -8,8 +8,17 @@ body {
   text-align: center;
 }
 
+.hangman {
+  position: relative;
+  text-align: center;
+}
+
 img {
   max-width: 200px;
+}
+
+.img-shown {
+  visibility: visible;
 }
 
 .board-row {
